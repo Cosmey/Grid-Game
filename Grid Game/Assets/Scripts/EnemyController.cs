@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] private Vector2Int oldPos;
+    [SerializeField] private Vector2Int newPos;
     void Start()
     {
-        
+        oldPos = new Vector2Int((int) transform.position.x, (int) transform.position.y);
+        newPos = oldPos;
     }
 
     // Update is called once per frame
@@ -20,13 +24,15 @@ public class EnemyController : MonoBehaviour
     public void Tick()
     {
         Vector2Int goalPos = WaveController.basePosition;
-        if(goalPos.x == (int) transform.position.x && goalPos.y == (int) transform.position.y)
-        {
-            return;
-        }
+        
         int distX = (int) transform.position.x - goalPos.x;
         int distY = (int) transform.position.y - goalPos.y;
-        
+        if(oldPos == goalPos || newPos == goalPos)
+        {
+            oldPos = goalPos;
+            newPos = goalPos;
+            return;
+        }
         int degrees;
         if (Mathf.Abs(distX) > Mathf.Abs(distY))
         {
@@ -50,21 +56,46 @@ public class EnemyController : MonoBehaviour
                 degrees = 90;
             }
         }
+        //make sure enemy actually got to new position
+        transform.position.Set(newPos.x, newPos.y, transform.position.z);
+        //set the old position to the old new position
+        oldPos = newPos;
+        //Make the enemy face towards where it wants to go
         transform.rotation = Quaternion.Euler(0, 0, degrees);
+        //Move the enemey forward
         transform.position += -transform.right;
+        //check if that spot was a wall
         bool isWall = TowerManager.isBuilding((int) transform.position.x, (int) transform.position.y);
-        while(isWall)
+        int maxChecks = 4;
+        int checks = 0;
+        //rotate 90 degrees until no longer facing a wall or is surrounded by walls
+        while(isWall && checks < maxChecks)
         {
+            //reset back to old position so it can rotate and go forward again
             transform.position += transform.right;
             degrees += 90;
             transform.rotation = Quaternion.Euler(0, 0, degrees);
             transform.position += -transform.right;
+            //check if that spot was a wall
+            isWall = TowerManager.isBuilding((int) transform.position.x, (int)transform.position.y);
+            checks++;
         }
-
+        //Reset enemy back to old position and make it stop, put a warning in the console
+        if(checks >= maxChecks)
+        {
+            transform.position += transform.right;
+            Debug.Log("LOCKED ENEMY");
+            return;
+        }
+        //Set the new goal position of the enemy 
+        newPos = new Vector2Int((int) transform.position.x, (int) transform.position.y);
+        //Reset the visual position of the enemy back to old position so interpolation can begin
+        transform.position += transform.right;
     }
 
-    public Vector3 RotatePointAroundPivot(Vector3 point, Vector3 pivot, Vector3 angles)
+    public void Lerp(float percent)
     {
-        return Quaternion.Euler(angles) * (point - pivot) + pivot;
+        //transition enemy between oldPos and newPos based on how far into the current tick we are
+        transform.position = Vector2.Lerp(oldPos, newPos, percent);
     }
 }

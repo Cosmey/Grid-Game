@@ -8,12 +8,17 @@ public class WaveController : MonoBehaviour
     [SerializeField] List<GameObject> enemies = new List<GameObject>();
     [SerializeField] GameObject enemy;
 
+    public static WaveController instance;
+
     public static Vector2Int basePosition;
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateEnemy(-15, -7);
+        if(instance == null)
+        {
+            instance = this;
+        }
         basePosition.Set((int) transform.position.x, (int) transform.position.y);
     }
 
@@ -29,6 +34,19 @@ public class WaveController : MonoBehaviour
         {
             ticks++;
             Tick();
+        }
+        float percentThroughTick = (float) ((time - (ticks * tickLength)) / tickLength);
+        percentThroughTick = 1.0f - Mathf.Abs(percentThroughTick);
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                EnemyController em = enemy.GetComponent<EnemyController>();
+                if (em != null)
+                {
+                    em.Lerp(percentThroughTick);
+                }
+            }
         }
     }
 

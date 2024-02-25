@@ -65,5 +65,6 @@ public class PlayerPlacementManager : MonoBehaviour
         GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
         Vector2 mousePos = (Vector2)GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
         tower.transform.localPosition = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+        TowerManager.setBuilding((int) Mathf.Round(mousePos.x), (int) Mathf.Round(mousePos.y), true);
     }
 }

@@ -83,7 +83,9 @@ public class PlayerControllerScript : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            myPlacementManager.PlaceObject();
+            //myPlacementManager.PlaceObject();
+            Vector2 mousePos = (Vector2)GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
+            WaveController.instance.CreateEnemy((int) Mathf.Round(mousePos.x), (int) Mathf.Round(mousePos.y));
         }
 
         if (Input.GetKeyDown(toggleTowerPlacingKeyCode))
