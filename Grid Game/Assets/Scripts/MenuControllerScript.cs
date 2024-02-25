@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuControllerScript : MonoBehaviour
 {
-    private GameObject currentMenu;
-    private GameObject previousMenu;
+    [SerializeField] private GameObject currentMenu;
+    private KeyCode backKeyCode = KeyCode.Escape;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +16,7 @@ public class MenuControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        CheckInputs();
     }
 
     public void LoadLevel()
@@ -31,12 +31,23 @@ public class MenuControllerScript : MonoBehaviour
     }
     public void BackMenu()
     {
-        currentMenu.SetActive(false);
-        currentMenu = previousMenu;
-        currentMenu.SetActive(true);
+        if(currentMenu.GetComponent<MenuScript>().GetPreviousMenu() != null)
+        {
+            currentMenu.SetActive(false);
+            currentMenu = currentMenu.GetComponent<MenuScript>().GetPreviousMenu();
+            currentMenu.SetActive(true);
+        }
+        
     }
     public void Exit()
     {
         Application.Quit();
+    }
+    private void CheckInputs()
+    {
+        if(Input.GetKeyDown(backKeyCode))
+        {
+            BackMenu();
+        }
     }
 }
