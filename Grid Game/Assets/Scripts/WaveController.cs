@@ -13,7 +13,8 @@ public class WaveController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        CreateEnemy(15, 7);
+        CreateEnemy(-15, -7);
+        basePosition.Set((int) transform.position.x, (int) transform.position.y);
     }
 
     double time = 0;
@@ -28,7 +29,6 @@ public class WaveController : MonoBehaviour
         {
             ticks++;
             Tick();
-            Debug.Log(time, this);
         }
     }
 
