@@ -302,46 +302,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &839973979 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9203226569249649773, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
-  m_PrefabInstance: {fileID: 5613058439412015468}
-  m_PrefabAsset: {fileID: 0}
---- !u!58 &839973983
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 839973979}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 4.5
 --- !u!1 &929740314
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,10 +720,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 679782382776329125, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3331645212312585985, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.8173428
@@ -805,25 +761,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8363109781764423750, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
-      propertyPath: bulletSpeed
-      value: 50
+      propertyPath: maxHealth
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8363109781764423750, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
       propertyPath: attackCooldown
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9203226569249649773, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
       propertyPath: m_Name
       value: Tower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2172119375240138234, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9203226569249649773, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 839973983}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
