@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerControllerScript : MonoBehaviour
 {
+    PlayerPlacementManager myPlacementManager;
+
+    private KeyCode toggleTowerPlacingKeyCode = KeyCode.Alpha0;
+    private KeyCode cycleTowerKeyCode = KeyCode.Tab;
+    private KeyCode basicTowerKeyCode = KeyCode.Q;
+    private KeyCode wallTowerKeyCode = KeyCode.E;
+
     private KeyCode moveLeftKeyCode = KeyCode.A;
     private KeyCode moveRightKeyCode = KeyCode.D;
     private KeyCode moveUpKeyCode = KeyCode.W;
@@ -19,6 +26,7 @@ public class PlayerControllerScript : MonoBehaviour
     void Start()
     {
         inputAxis = new Vector2(0, 0);
+        myPlacementManager = GetComponent<PlayerPlacementManager>();
     }
 
     // Update is called once per frame
@@ -69,9 +77,30 @@ public class PlayerControllerScript : MonoBehaviour
             Camera.main.orthographicSize = maxCameraSize;
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
-            MousePressed();
+            myPlacementManager.PlaceObject();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            myPlacementManager.PlaceObject();
+        }
+
+        if (Input.GetKeyDown(toggleTowerPlacingKeyCode))
+        {
+            myPlacementManager.TogglePlacingTowers();
+        }
+        if (Input.GetKeyDown(basicTowerKeyCode))
+        {
+            myPlacementManager.SelectTower("basicTower");
+        }
+        if (Input.GetKeyDown(wallTowerKeyCode))
+        {
+            myPlacementManager.SelectTower("wallTower");
+        }
+        if (Input.GetKeyDown(cycleTowerKeyCode))
+        {
+            myPlacementManager.CycleTowers();
         }
     }
     private void Move()
@@ -85,18 +114,5 @@ public class PlayerControllerScript : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x,Mathf.Sign(transform.position.y) * cameraMaxBounds.y, transform.position.z);
         }
-    }
-    private void MousePressed()
-    {
-        PlaceObject();
-    }
-    private void PlaceObject()
-    {
-
-    }
-    private void PlaceWall()
-    {
-        GameObject wall = Instantiate(wallPrefab);
-        
     }
 }
