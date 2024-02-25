@@ -19,6 +19,8 @@ public class GridTile : MonoBehaviour
     {
         spriteRenderer.enabled = true;
         gridManager.OnTileHoverEnter(this);
+        
+
     }
 
     private void OnMouseExit()
