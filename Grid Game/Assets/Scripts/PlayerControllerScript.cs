@@ -27,6 +27,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
         inputAxis = new Vector2(0, 0);
         myPlacementManager = GetComponent<PlayerPlacementManager>();
+        LoadControls();
     }
 
     // Update is called once per frame
@@ -38,6 +39,17 @@ public class PlayerControllerScript : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+    }
+    private void LoadControls()
+    {
+        toggleTowerPlacingKeyCode = SaveDataScript.GetKeyCode("toggleTowerPlacingKeyCode");
+        cycleTowerKeyCode = SaveDataScript.GetKeyCode("cycleTowerKeyCode");
+        basicTowerKeyCode = SaveDataScript.GetKeyCode("basicTowerKeyCode");
+        wallTowerKeyCode = SaveDataScript.GetKeyCode("wallTowerKeyCode");
+        moveLeftKeyCode = SaveDataScript.GetKeyCode("moveLeftKeyCode");
+        moveRightKeyCode = SaveDataScript.GetKeyCode("moveRightKeyCode");
+        moveUpKeyCode = SaveDataScript.GetKeyCode("moveUpKeyCode");
+        moveDownKeyCode = SaveDataScript.GetKeyCode("moveDownKeyCode");
     }
 
     private void CheckInputs()
