@@ -301,7 +301,7 @@ MonoBehaviour:
   maxCameraSize: 30
   minCameraSize: 5
   cameraMaxBounds: {x: 20, y: 20}
-  wallPrefab: {fileID: 0}
+  wallPrefab: {fileID: 4713189871404043295, guid: b95a6dd93d770d14ca04cd599d7c8069, type: 3}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,6 +601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2051747583}
+  - component: {fileID: 2051747584}
   m_Layer: 0
   m_Name: Towers
   m_TagString: Untagged
@@ -623,6 +624,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2051747584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051747582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a77d7881b2e044e825c7d11aea3f7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemies: []
+  enemy: {fileID: 330682366712979022, guid: ac79fbcb1361aea4cab10b36153a9769, type: 3}
+  tickLength: 0.5
 --- !u!1 &2055973588
 GameObject:
   m_ObjectHideFlags: 0

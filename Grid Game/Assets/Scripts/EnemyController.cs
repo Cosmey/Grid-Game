@@ -11,7 +11,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Vector2Int newPos;
     void Start()
     {
-        oldPos = new Vector2Int((int) transform.position.x, (int) transform.position.y);
+        
+    }
+
+    public void Init()
+    {
+        oldPos = new Vector2Int((int)transform.position.x, (int)transform.position.y);
         newPos = oldPos;
     }
 
@@ -33,16 +38,17 @@ public class EnemyController : MonoBehaviour
             newPos = goalPos;
             return;
         }
-        int degrees;
+        oldPos = newPos;
         if (Mathf.Abs(distX) > Mathf.Abs(distY))
         {
             int change = distX == 0 ? 0 : (-distX / Mathf.Abs(distX));
             if(change >= 0)
             {
-                degrees = 180;
+                newPos.Set(oldPos.x + 1, oldPos.y);
+                //degrees = 180;
             } else
             {
-                degrees = 0;
+                newPos.Set(oldPos.x - 1, oldPos.y);
             }
         }
         else
@@ -50,22 +56,31 @@ public class EnemyController : MonoBehaviour
             int change = distY == 0 ? 0 : (-distY / Mathf.Abs(distY));
             if(change >= 0)
             {
-                degrees = 270;
+                newPos.Set(oldPos.x, oldPos.y + 1);
             } else
             {
-                degrees = 90;
+                newPos.Set(oldPos.x, oldPos.y - 1);
             }
         }
         //make sure enemy actually got to new position
-        transform.position.Set(newPos.x, newPos.y, transform.position.z);
+        //transform.position.Set(newPos.x, newPos.y, transform.position.z);
         //set the old position to the old new position
-        oldPos = newPos;
+        
         //Make the enemy face towards where it wants to go
-        transform.rotation = Quaternion.Euler(0, 0, degrees);
+        //transform.rotation = Quaternion.Euler(0, 0, degrees);
         //Move the enemey forward
-        transform.position += -transform.right;
+        //transform.position += -transform.right;
+        //Set the new goal position of the enemy 
+        //newPos = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        //Reset the visual position of the enemy back to old position so interpolation can begin
+        //transform.position += transform.right;
+
+
+
+
+
         //check if that spot was a wall
-        bool isWall = TowerManager.isBuilding((int) transform.position.x, (int) transform.position.y);
+        /*bool isWall = TowerManager.isBuilding((int) transform.position.x, (int) transform.position.y);
         int maxChecks = 4;
         int checks = 0;
         //rotate 90 degrees until no longer facing a wall or is surrounded by walls
@@ -86,11 +101,11 @@ public class EnemyController : MonoBehaviour
             transform.position += transform.right;
             Debug.Log("LOCKED ENEMY");
             return;
-        }
-        //Set the new goal position of the enemy 
-        newPos = new Vector2Int((int) transform.position.x, (int) transform.position.y);
-        //Reset the visual position of the enemy back to old position so interpolation can begin
-        transform.position += transform.right;
+        }*/
+        
+
+        
+
     }
 
     public void Lerp(float percent)

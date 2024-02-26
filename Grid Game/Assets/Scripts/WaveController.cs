@@ -69,6 +69,8 @@ public class WaveController : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(enemy);
         newEnemy.transform.position = new Vector2(x, y);
+        EnemyController eC = newEnemy.GetComponent<EnemyController>();
+        eC.Init();
         enemies.Add(newEnemy);
     }
 }
