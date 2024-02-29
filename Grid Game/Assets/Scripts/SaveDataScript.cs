@@ -12,7 +12,6 @@ public class SaveDataScript : MonoBehaviour
     void Awake()
     {
         LoadData();
-        Debug.Log(mySaveData.moveLeftKeyCode);
     }
     void OnDestroy()
     {
@@ -110,6 +109,37 @@ public class SaveDataScript : MonoBehaviour
         }
         return KeyCode.P;
     }
+    public static void SetVolume(string volumeType,float newVolume)
+    {
+        if(volumeType == "master")
+        {
+            mySaveData.masterVolume = newVolume;
+        }
+        else if (volumeType == "SFX")
+        {
+            mySaveData.SFXVolume = newVolume;
+        }
+        else if (volumeType == "music")
+        {
+            mySaveData.musicVolume = newVolume;
+        }
+    }
+    public static float GetVolume(string volumeType)
+    {
+        if (volumeType == "master")
+        {
+            return mySaveData.masterVolume;
+        }
+        else if (volumeType == "SFX")
+        {
+            return mySaveData.SFXVolume;
+        }
+        else if (volumeType == "music")
+        {
+            return mySaveData.musicVolume;
+        }
+        return 0;
+    }
 }
 
 [Serializable]
@@ -124,6 +154,10 @@ public class SaveData
     public KeyCode moveRightKeyCode = KeyCode.D;
     public KeyCode moveUpKeyCode = KeyCode.W;
     public KeyCode moveDownKeyCode = KeyCode.S;
+
+    public float masterVolume = 0.2f;
+    public float SFXVolume = 0.2f;
+    public float musicVolume = 0.2f;
 }
 
 
