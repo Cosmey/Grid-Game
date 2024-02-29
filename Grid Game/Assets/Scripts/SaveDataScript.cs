@@ -12,6 +12,7 @@ public class SaveDataScript : MonoBehaviour
     void Awake()
     {
         LoadData();
+        Debug.Log(mySaveData.moveLeftKeyCode);
     }
     void OnDestroy()
     {
@@ -21,13 +22,17 @@ public class SaveDataScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            DataSaver.Delete();
+            Debug.Log("deleted save data");
+        }
     }
 
     private void LoadData()
     {
         mySaveData = new SaveData();
-        DataSaver.Load(mySaveData);
+        mySaveData = DataSaver.Load(mySaveData);
     }
     private void SaveData()
     {
@@ -132,14 +137,22 @@ public class DataSaver
         bf.Serialize(fs, myData);
         fs.Close();
     }
-    public static void Load(SaveData myData)
+    public static SaveData Load(SaveData myData)
     {
         if(File.Exists(Application.persistentDataPath + "/SaveData.dat"))
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream fs = File.Create(Application.persistentDataPath + "/SaveData.dat");
+            FileStream fs = new FileStream(Application.persistentDataPath + "/SaveData.dat",FileMode.Open);
             myData = bf.Deserialize(fs) as SaveData;
             fs.Close();
+        }
+        return myData;
+    }
+    public static void Delete()
+    {
+        if (File.Exists(Application.persistentDataPath + "/SaveData.dat"))
+        {
+            File.Delete(Application.persistentDataPath + "/SaveData.dat");
         }
     }
 }
