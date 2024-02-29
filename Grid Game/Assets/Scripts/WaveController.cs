@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class WaveController : MonoBehaviour
 
     public static WaveController instance;
 
-    public static Vector2Int basePosition;
+    public static Entity baseEntity;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class WaveController : MonoBehaviour
         {
             instance = this;
         }
-        basePosition.Set((int) transform.position.x, (int) transform.position.y);
+        baseEntity = GetComponent<Entity>();
     }
 
     double time = 0;
@@ -45,8 +46,20 @@ public class WaveController : MonoBehaviour
                 if (em != null)
                 {
                     em.Lerp(percentThroughTick);
+                } else
+                {
+                    enemies.Remove(enemy);
                 }
+            } else
+            {
+                enemies.Remove(enemy);
             }
+        }
+
+
+        if(baseEntity.health <= 0)
+        {
+            GameOver();
         }
     }
 
@@ -72,5 +85,10 @@ public class WaveController : MonoBehaviour
         EnemyController eC = newEnemy.GetComponent<EnemyController>();
         eC.Init();
         enemies.Add(newEnemy);
+    }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("EndScreen", LoadSceneMode.Single);
     }
 }

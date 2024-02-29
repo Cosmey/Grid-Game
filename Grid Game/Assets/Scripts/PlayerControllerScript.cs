@@ -89,7 +89,7 @@ public class PlayerControllerScript : MonoBehaviour
             Camera.main.orthographicSize = maxCameraSize;
         }
 
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0))
         {
             myPlacementManager.PlaceObject();
         }
@@ -97,7 +97,7 @@ public class PlayerControllerScript : MonoBehaviour
         {
             //myPlacementManager.PlaceObject();
             Vector2 mousePos = (Vector2)GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log(mousePos.x + " " + mousePos.y);
+
             WaveController.instance.CreateEnemy((int) mousePos.x, (int) mousePos.y);
         }
 

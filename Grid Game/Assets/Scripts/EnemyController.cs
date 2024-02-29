@@ -9,6 +9,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] private Vector2Int oldPos;
     [SerializeField] private Vector2Int newPos;
+    [SerializeField] private Entity targetEntity;
+    [SerializeField] private Vector2Int goalPos;
     void Start()
     {
         
@@ -18,6 +20,8 @@ public class EnemyController : MonoBehaviour
     {
         oldPos = new Vector2Int((int)transform.position.x, (int)transform.position.y);
         newPos = oldPos;
+        targetEntity = WaveController.baseEntity;
+        goalPos = targetEntity.GetTargetFromPoint(oldPos);
     }
 
     // Update is called once per frame
@@ -28,16 +32,23 @@ public class EnemyController : MonoBehaviour
 
     public void Tick()
     {
-        Vector2Int goalPos = WaveController.basePosition;
-        
-        int distX = (int) transform.position.x - goalPos.x;
-        int distY = (int) transform.position.y - goalPos.y;
-        if(oldPos == goalPos || newPos == goalPos)
+        transform.position.Set(newPos.x, newPos.y, transform.position.z);
+        if(newPos == goalPos)
         {
             oldPos = goalPos;
-            newPos = goalPos;
+            Entity entity = GetComponent<Entity>();
+            if(entity != null)
+            {
+                entity.DealDamageTo(targetEntity);
+            } else
+            {
+                Debug.Log("Enemy does not have entity component!");
+            }
+            
             return;
         }
+        int distX = (int) transform.position.x - goalPos.x;
+        int distY = (int) transform.position.y - goalPos.y;
         oldPos = newPos;
         if (Mathf.Abs(distX) > Mathf.Abs(distY))
         {
@@ -62,6 +73,9 @@ public class EnemyController : MonoBehaviour
                 newPos.Set(oldPos.x, oldPos.y - 1);
             }
         }
+
+        
+
         //make sure enemy actually got to new position
         //transform.position.Set(newPos.x, newPos.y, transform.position.z);
         //set the old position to the old new position
