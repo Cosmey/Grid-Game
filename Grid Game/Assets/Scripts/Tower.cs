@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-
+    private List<GameObject> targetList;
     private GameObject target;
     [SerializeField] GameObject bullet;
     [SerializeField] GameObject spawnPoint;
@@ -20,15 +20,11 @@ public class Tower : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            target = collision.gameObject;
-        }
+        targetList = new List<GameObject>();
     }
+
 
     // Update is called once per frame
     void Update()
@@ -54,11 +50,14 @@ public class Tower : MonoBehaviour
     
     void attack()
     {
+        if(target != null)
+        {
+            GameObject e = Instantiate(bullet, spawnPoint.transform.position, Quaternion.identity);
+            e.GetComponent<Rigidbody2D>().velocity = (target.transform.position - transform.position).normalized * bulletSpeed;
+            Destroy(e, 2);
+            bulletMove(e);
+        }
         
-        GameObject e =  Instantiate(bullet, spawnPoint.transform.position, Quaternion.identity);
-        e.GetComponent<Rigidbody2D>().velocity = (target.transform.position - transform.position).normalized * bulletSpeed;
-        Destroy(e, 2);
-        bulletMove(e);
         
         
     }
@@ -76,5 +75,26 @@ public class Tower : MonoBehaviour
     void death()
     {
         Destroy(this);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log("hit");
+        if (other.tag == "Enemy")
+        {
+            targetList.Add(other.gameObject);
+            target = targetList[0];
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Enemy")
+        {
+            targetList.Remove(other.gameObject);
+            if(targetList.Count <= 0)
+            {
+                target = null;
+            }
+        }
     }
 }
