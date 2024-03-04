@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour
     void Start()
     {
         radius = (int)Mathf.Ceil(transform.localScale.x / 2f);
-        pos = new Vector2Int((int) transform.position.x, (int) transform.position.y);
+        pos = new Vector2Int((int)transform.position.x, (int)transform.position.y);
     }
 
     //This function allows things to get 
@@ -24,10 +24,10 @@ public class Entity : MonoBehaviour
     public Vector2Int GetTargetFromPoint(Vector2Int point)
     {
         Vector2Int upperLeft = new Vector2Int(pos.x - GetEdgeOffset(), pos.y - GetEdgeOffset());
-        int width = (GetEdgeOffset()*2)+1;
+        int width = (GetEdgeOffset() * 2) + 1;
         float lowestDist = float.MaxValue;
         Vector2Int closestPoint = pos;
-        for (int x = 0; x < width; x++) 
+        for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < width; y++)
             {
@@ -50,6 +50,11 @@ public class Entity : MonoBehaviour
     //This should be called from entity that is dealing the damage, parameter is taking damage
     public void DealDamageTo(Entity entity)
     {
+        if(entity == null)
+        {
+            Debug.Log("Something is probably missing an entity component");
+            return;
+        }
         entity.TakeDamage(this);
         Destroy(gameObject);
     }
@@ -57,8 +62,13 @@ public class Entity : MonoBehaviour
     //This should be called from the entity that is taking damage, parameter is dealing damage
     public void TakeDamage(Entity entity)
     {
-        health -= entity.damage;
-        if(health <= 0)
+        TakeDamage(entity.damage);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0)
         {
             Destroy(gameObject);
         }
@@ -67,6 +77,6 @@ public class Entity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
