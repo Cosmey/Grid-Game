@@ -134,6 +134,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 216293973846568424}
   bulletSpeed: 50
   attackCooldown: 0.1
+  maxHealth: 0
 --- !u!58 &2958861828709052657
 CircleCollider2D:
   m_ObjectHideFlags: 0

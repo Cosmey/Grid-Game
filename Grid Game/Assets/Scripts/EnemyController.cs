@@ -30,9 +30,22 @@ public class EnemyController : MonoBehaviour
         
     }
 
+    private void OnDestroy()
+    {
+        WaveController.instance.RemoveEnemy(gameObject);
+    }
+
     public void Tick()
     {
         transform.position.Set(newPos.x, newPos.y, transform.position.z);
+        GameObject building = TowerManager.getBuilding(newPos);
+        if(building != null) {
+            Entity entity = building.GetComponent<Entity>();
+            Entity enemyEntity = GetComponent<Entity>();
+            enemyEntity.DealDamageTo(entity);
+        }
+
+
         if(newPos == goalPos)
         {
             oldPos = goalPos;
@@ -116,10 +129,6 @@ public class EnemyController : MonoBehaviour
             Debug.Log("LOCKED ENEMY");
             return;
         }*/
-        
-
-        
-
     }
 
     public void Lerp(float percent)

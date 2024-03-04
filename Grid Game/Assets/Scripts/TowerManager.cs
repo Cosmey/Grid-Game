@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class TowerManager : MonoBehaviour
 {
 
     static int MAX_WIDTH = 101;
     static int MAX_HEIGHT = 101;
-    private static bool[,] buildings = new bool[MAX_WIDTH, MAX_HEIGHT];
+    private static GameObject[,] buildings = new GameObject[MAX_WIDTH, MAX_HEIGHT];
 
     // Start is called before the first frame update
     void Start()
     {
-        /*buildings = new bool[MAX_WIDTH,MAX_HEIGHT];
+        //buildings = new bool[MAX_WIDTH,MAX_HEIGHT];
         for(int y=0;y<MAX_HEIGHT;y++) 
         {
             for(int x=0;x<MAX_WIDTH;x++)
             {
-                buildings[x,y] = false;
+                buildings[x,y] = null;
             }
-        }*/
+        }
     }
 
     // Update is called once per frame
@@ -28,18 +29,28 @@ public class TowerManager : MonoBehaviour
         
     }
 
-    public static bool isBuilding(int x, int y)
+    public static GameObject getBuilding(Vector2 pos)
+    {
+        return getBuilding((int) Mathf.Round(pos.x), (int) Mathf.Round(pos.y));
+    }
+
+    public static GameObject getBuilding(int x, int y)
     {
         int finX = x + MAX_WIDTH / 2;
         int finY = y + MAX_HEIGHT / 2;
-        if(finX < 0 || finX >= MAX_WIDTH || finY <  0 || finY >= MAX_HEIGHT)
+        if (finX < 0 || finX >= MAX_WIDTH || finY < 0 || finY >= MAX_HEIGHT)
         {
-            return false;
+            return null;
         }
-        return buildings[finX,finY];
+        return buildings[finX, finY];
     }
 
-    public static bool setBuilding(int x, int y, bool isBuilding)
+    public static bool setBuilding(Vector2 pos, GameObject building)
+    {
+        return setBuilding((int)Mathf.Round(pos.x), (int)Mathf.Round(pos.y), building);
+    }
+
+    public static bool setBuilding(int x, int y, GameObject building)
     {
         int finX = x + MAX_WIDTH / 2;
         int finY = y + MAX_HEIGHT / 2;
@@ -47,7 +58,7 @@ public class TowerManager : MonoBehaviour
         {
             return false;
         }
-        buildings[finX,finY] = isBuilding;
+        buildings[finX,finY] = building;
 
         return true;
     }

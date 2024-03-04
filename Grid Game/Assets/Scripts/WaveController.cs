@@ -38,29 +38,37 @@ public class WaveController : MonoBehaviour
         }
         float percentThroughTick = (float) ((time - (ticks * tickLength)) / tickLength);
         percentThroughTick = 1.0f - Mathf.Abs(percentThroughTick);
-        foreach (GameObject enemy in enemies)
+
+        for(int i=enemies.Count-1; i>=0; i--)
         {
+            GameObject enemy = enemies[i];
             if (enemy != null)
             {
                 EnemyController em = enemy.GetComponent<EnemyController>();
                 if (em != null)
                 {
                     em.Lerp(percentThroughTick);
-                } else
+                }
+                else
                 {
                     enemies.Remove(enemy);
                 }
-            } else
+            }
+            else
             {
                 enemies.Remove(enemy);
             }
         }
+    }
 
+    public void RemoveEnemy(GameObject enemy)
+    {
+        enemies.Remove(enemy);
+    }
 
-        if(baseEntity.health <= 0)
-        {
-            GameOver();
-        }
+    private void OnDestroy()
+    {
+        GameOver();
     }
 
     private void Tick()

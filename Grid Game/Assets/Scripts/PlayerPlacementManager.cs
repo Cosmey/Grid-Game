@@ -6,7 +6,7 @@ public class PlayerPlacementManager : MonoBehaviour
 {
     private bool placingTowers;
     private GameObject selectedTower;
-    private TowerDisplayScript myTowerDisplayScript;
+    [SerializeField] private TowerDisplayScript myTowerDisplayScript;
     [SerializeField] private GameObject basicTower;
     [SerializeField] private GameObject wallTower;
     private List<GameObject> towerList;
@@ -19,7 +19,7 @@ public class PlayerPlacementManager : MonoBehaviour
 
     private void SetupList()
     {
-        myTowerDisplayScript = GameObject.Find("CurrentTowerDisplay").GetComponent<TowerDisplayScript>();
+        //myTowerDisplayScript = GameObject.Find("CurrentTowerDisplay").GetComponent<TowerDisplayScript>();
         towerList = new List<GameObject>();
         towerList.Add(basicTower);
         towerList.Add(wallTower);
@@ -62,9 +62,23 @@ public class PlayerPlacementManager : MonoBehaviour
     }
     public void PlaceObject()
     {
-        GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
         Vector2 mousePos = (Vector2)GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-        tower.transform.localPosition = new Vector2(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
-        TowerManager.setBuilding((int) Mathf.Round(mousePos.x), (int) Mathf.Round(mousePos.y), true);
+        mousePos.Set(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
+        if (TowerManager.getBuilding(mousePos) == null) {
+            GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
+            tower.transform.localPosition = mousePos;
+            if (TowerManager.setBuilding(mousePos, tower))
+            {
+                
+            } else
+            {
+               //Debug.Log("Invalid Placement!");
+            }
+        } else
+        {
+            //Debug.Log("Existing Tower There!");
+        }
+
+        
     }
 }

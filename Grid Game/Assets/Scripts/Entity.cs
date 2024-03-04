@@ -58,6 +58,10 @@ public class Entity : MonoBehaviour
     public void TakeDamage(Entity entity)
     {
         health -= entity.damage;
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
