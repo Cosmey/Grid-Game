@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class WaveController : MonoBehaviour
 {
 
-    [SerializeField] List<GameObject> enemies = new List<GameObject>();
+    [SerializeField] public List<GameObject> enemies = new List<GameObject>();
     [SerializeField] GameObject enemy;
 
     public static WaveController instance;

@@ -5,22 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
 
-    public GameObject target;
-    [SerializeField] float speed;
-
-
-
-    void playerFound(GameObject target)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        target = target.gameObject;
-    }
-    void Update()
-    {
-        if(target != null)
+        if(other.gameObject.tag == "Enemy")
         {
-            var step = speed * Time.deltaTime;
-            Vector3 targetPosition = target.transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            other.gameObject.GetComponent<Entity>().health -= 5;
+            Destroy(gameObject);
+            
         }
     }
 }
