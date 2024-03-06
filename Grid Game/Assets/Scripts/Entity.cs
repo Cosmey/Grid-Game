@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour
     [SerializeField] Vector2Int pos;
     [SerializeField] public double health;
     [SerializeField] public float damage;
-    [SerializeField] private int radius;
+    private int radius;
 
     void Start()
     {

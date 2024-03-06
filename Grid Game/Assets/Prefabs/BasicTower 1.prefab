@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3820527522687978300}
   - component: {fileID: 1438154653261995283}
   - component: {fileID: -5998997095904689646}
+  - component: {fileID: -8377347830999542337}
   m_Layer: 0
   m_Name: BasicTower 1
   m_TagString: Untagged
@@ -100,6 +101,21 @@ MonoBehaviour:
   bullet: {fileID: 6627991446184410414, guid: 82fd2414551c55e43b0b05808c651554, type: 3}
   spawnPoint: {fileID: 216293973846568424, guid: be24033ea4f509745a2d06d9706f270f, type: 3}
   bulletSpeed: 50
-  attackCooldown: 0.1
+  attackCooldown: 1
   maxHealth: 100
   maxDistance: 10
+--- !u!114 &-8377347830999542337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435607404370001169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d075c933b9c6aaa4ab2351a804176926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0}
+  health: 100
+  damage: 0
