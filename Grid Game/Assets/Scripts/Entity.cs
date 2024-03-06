@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
     [SerializeField] Vector2Int pos;
     [SerializeField] public double health;
     [SerializeField] public float damage;
+    [SerializeField] public int cost;
     private int radius;
 
     void Start()
@@ -19,6 +20,10 @@ public class Entity : MonoBehaviour
     private int GetEdgeOffset()
     {
         return radius - 1;
+    }
+    public int GetCost()
+    {
+        return cost;
     }
 
     public Vector2Int GetTargetFromPoint(Vector2Int point)

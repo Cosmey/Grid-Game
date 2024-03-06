@@ -6,6 +6,7 @@ public class PlayerPlacementManager : MonoBehaviour
 {
     private bool placingTowers;
     private GameObject selectedTower;
+    private GameObject moneyManager;
     [SerializeField] private TowerDisplayScript myTowerDisplayScript;
     [SerializeField] private GameObject basicTower;
     [SerializeField] private GameObject wallTower;
@@ -19,7 +20,7 @@ public class PlayerPlacementManager : MonoBehaviour
 
     private void SetupList()
     {
-        //myTowerDisplayScript = GameObject.Find("CurrentTowerDisplay").GetComponent<TowerDisplayScript>();
+        moneyManager = GameObject.Find("MoneyManager");
         towerList = new List<GameObject>();
         towerList.Add(basicTower);
         towerList.Add(wallTower);
@@ -64,7 +65,8 @@ public class PlayerPlacementManager : MonoBehaviour
     {
         Vector2 mousePos = (Vector2)GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
         mousePos.Set(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
-        if (TowerManager.getBuilding(mousePos) == null) {
+        int cost = selectedTower.GetComponent<Entity>().GetCost();
+        if (TowerManager.getBuilding(mousePos) == null && moneyManager.GetComponent<MoneyManagerScript>().SubtractAndCheckMoney(cost)) {
             GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
             tower.transform.localPosition = mousePos;
             if (TowerManager.setBuilding(mousePos, tower))

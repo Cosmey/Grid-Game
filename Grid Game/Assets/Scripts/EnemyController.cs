@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Vector2Int newPos;
     [SerializeField] private Entity targetEntity;
     [SerializeField] private Vector2Int goalPos;
+    [SerializeField] private GameObject deathParticle;
     void Start()
     {
         
@@ -38,12 +39,12 @@ public class EnemyController : MonoBehaviour
     public void Tick()
     {
         transform.position.Set(newPos.x, newPos.y, transform.position.z);
-        GameObject building = TowerManager.getBuilding(newPos);
-        if(building != null) {
-            Entity entity = building.GetComponent<Entity>();
-            Entity enemyEntity = GetComponent<Entity>();
-            enemyEntity.DealDamageTo(entity);
-        }
+        //GameObject building = TowerManager.getBuilding(newPos);
+        //if(building != null) {
+        //    Entity entity = building.GetComponent<Entity>();
+        //    Entity enemyEntity = GetComponent<Entity>();
+        //    enemyEntity.DealDamageTo(entity);
+        //}
 
 
         if(newPos == goalPos)
@@ -135,5 +136,23 @@ public class EnemyController : MonoBehaviour
     {
         //transition enemy between oldPos and newPos based on how far into the current tick we are
         transform.position = Vector2.Lerp(oldPos, newPos, percent);
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.gameObject.tag == "Building")
+        {
+            Entity entity = other.gameObject.GetComponent<Entity>();
+            Entity enemyEntity = GetComponent<Entity>();
+            //DeathParticle();
+            enemyEntity.DealDamageTo(entity);
+        }
+        
+    }
+    private void DeathParticle()
+    {
+        GameObject particle = Instantiate(deathParticle, GameObject.Find("Particles").transform);
+        particle.transform.position = transform.position;
     }
 }

@@ -6,12 +6,12 @@ using TMPro;
 
 public class MoneyManagerScript : MonoBehaviour
 {
-    private int money;
+    [SerializeField] private int money;
     [SerializeField] private GameObject moneyDisplay;
     // Start is called before the first frame update
     void Start()
     {
-        
+        UpdateMoneyDisplay();
     }
 
     // Update is called once per frame
