@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControllerScript : MonoBehaviour
 {
     PlayerPlacementManager myPlacementManager;
+    [SerializeField] private GameObject pauseMenu;
 
     private KeyCode toggleTowerPlacingKeyCode = KeyCode.Alpha0;
     private KeyCode cycleTowerKeyCode = KeyCode.Tab;
@@ -33,14 +34,18 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckInputs();
+        if(!pauseMenu.GetComponent<PauseMenuManager>().GetIsPaused())
+        {
+            CheckInputs();
+        }
+        
 
     }
     void FixedUpdate()
     {
         Move();
     }
-    private void LoadControls()
+    public void LoadControls()
     {
         toggleTowerPlacingKeyCode = SaveDataScript.GetKeyCode("toggleTowerPlacingKeyCode");
         cycleTowerKeyCode = SaveDataScript.GetKeyCode("cycleTowerKeyCode");

@@ -72,6 +72,12 @@ public class SaveDataScript : MonoBehaviour
         {
             mySaveData.moveDownKeyCode = newCode;
         }
+
+        GameObject player = GameObject.Find("Main Camera");
+        if(player.GetComponent<PlayerControllerScript>() != null)
+        {
+            player.GetComponent<PlayerControllerScript>().LoadControls();
+        }
     }
     public static KeyCode GetKeyCode(string keyCodeName)
     {

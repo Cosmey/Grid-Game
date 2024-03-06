@@ -5,13 +5,15 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     [SerializeField] Vector2Int pos;
-    [SerializeField] public double health;
-    [SerializeField] public float damage;
+    [SerializeField] public int health;
+    public int maxHealth;
+    [SerializeField] public int damage;
     [SerializeField] public int cost;
     private int radius;
 
     void Start()
     {
+        maxHealth = health;
         radius = (int)Mathf.Ceil(transform.localScale.x / 2f);
         pos = new Vector2Int((int)transform.position.x, (int)transform.position.y);
     }
@@ -70,7 +72,7 @@ public class Entity : MonoBehaviour
         TakeDamage(entity.damage);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0)

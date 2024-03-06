@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuControllerScript : MonoBehaviour
 {
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject currentMenu;
     private KeyCode backKeyCode = KeyCode.Escape;
     // Start is called before the first frame update
@@ -36,6 +37,10 @@ public class MenuControllerScript : MonoBehaviour
             currentMenu.SetActive(false);
             currentMenu = currentMenu.GetComponent<MenuScript>().GetPreviousMenu();
             currentMenu.SetActive(true);
+        }
+        else if(pauseMenu != null)
+        {
+            pauseMenu.GetComponent<PauseMenuManager>().TogglePause();
         }
         
     }
