@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     {
         if(other.gameObject.tag == "Enemy")
         {
-            other.gameObject.GetComponent<Entity>().health -= 5;
+            other.gameObject.GetComponent<Entity>().TakeDamage(5.0f);
             Destroy(gameObject);
             
         }
