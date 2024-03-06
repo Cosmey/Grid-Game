@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7819297696028490212}
   - component: {fileID: -5412617780447618313}
   - component: {fileID: -766931387638782161}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.042452812, b: 0.042452812, a: 1}
+  m_Color: {r: 1, g: 0.042452812, b: 0.042452812, a: 0.19607843}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -102,9 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oldPos: {x: 0, y: 0}
   newPos: {x: 0, y: 0}
-  targetEntity: {fileID: 0}
+  goalRatio: 0
   goalPos: {x: 0, y: 0}
   deathParticle: {fileID: 0}
+  targetEntity: {fileID: 0}
+  money: 1
 --- !u!114 &7819297696028490212
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class WaveController : MonoBehaviour
 {
 
+    [SerializeField] double tickLength = 0.5;
+    [SerializeField] private int waveCount = 0;
     [SerializeField] public List<GameObject> enemies = new List<GameObject>();
     [SerializeField] GameObject enemy;
 
@@ -21,10 +23,17 @@ public class WaveController : MonoBehaviour
             instance = this;
         }
         baseEntity = GetComponent<Entity>();
+        //Make it so you can't place stuff on top of home base
+        for (int x = -2; x <= 2; x++)
+        {
+            for (int y = -2; y <= 2; y++)
+            {
+                TowerManager.setBuilding(x, y, gameObject);
+            }
+        }
     }
 
     double time = 0;
-    [SerializeField] double tickLength = 0.5;
     double ticks = 0;
 
     // Update is called once per frame
@@ -90,17 +99,13 @@ public class WaveController : MonoBehaviour
         }
     }
 
-    [SerializeField] private int waveCount = 0;
+    
     private void Wave()
     {
         int enemyCount = EnemyCountForWave(waveCount);
-        Debug.Log("Count: " + enemyCount);
-        float dist = Mathf.Sqrt(enemyCount)+20.0f + waveCount * 3.0f;
-        Debug.Log("Dist: " + dist);
-        Vector2 pos = Random.insideUnitCircle * dist;
-        pos.Set(pos.x + Mathf.Sqrt(enemyCount), pos.y + Mathf.Sqrt(enemyCount));
-        float radius = Mathf.Sqrt(enemyCount) / 2;
-        Debug.Log("Radius: " + radius);
+        float radius = Mathf.Sqrt(enemyCount / Mathf.PI);
+        float dist = waveCount/2 + 10 + radius;
+        Vector2 pos = Random.insideUnitCircle.normalized * dist;
         for(int i=0;i<enemyCount; i++)
         {
             Vector2 spawnPos = Random.insideUnitCircle * radius + pos;

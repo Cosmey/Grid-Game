@@ -10,25 +10,6 @@ public class TowerManager : MonoBehaviour
     static int MAX_HEIGHT = 101;
     private static GameObject[,] buildings = new GameObject[MAX_WIDTH, MAX_HEIGHT];
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //buildings = new bool[MAX_WIDTH,MAX_HEIGHT];
-        for(int y=0;y<MAX_HEIGHT;y++) 
-        {
-            for(int x=0;x<MAX_WIDTH;x++)
-            {
-                buildings[x,y] = null;
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public static GameObject getBuilding(Vector2 pos)
     {
         return getBuilding((int) Mathf.Round(pos.x), (int) Mathf.Round(pos.y));
