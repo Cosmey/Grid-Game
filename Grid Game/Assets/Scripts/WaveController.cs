@@ -73,6 +73,10 @@ public class WaveController : MonoBehaviour
 
     private void Tick()
     {
+        if(enemies.Count == 0)
+        {
+            Wave();
+        }
         foreach(GameObject enemy in enemies)
         {
             if(enemy != null)
@@ -84,6 +88,32 @@ public class WaveController : MonoBehaviour
                 }
             }
         }
+    }
+
+    [SerializeField] private int waveCount = 0;
+    private void Wave()
+    {
+        int enemyCount = EnemyCountForWave(waveCount);
+        Debug.Log("Count: " + enemyCount);
+        float dist = Mathf.Sqrt(enemyCount)+20.0f + waveCount * 3.0f;
+        Debug.Log("Dist: " + dist);
+        Vector2 pos = Random.insideUnitCircle * dist;
+        pos.Set(pos.x + Mathf.Sqrt(enemyCount), pos.y + Mathf.Sqrt(enemyCount));
+        float radius = Mathf.Sqrt(enemyCount) / 2;
+        Debug.Log("Radius: " + radius);
+        for(int i=0;i<enemyCount; i++)
+        {
+            Vector2 spawnPos = Random.insideUnitCircle * radius + pos;
+            CreateEnemy((int) spawnPos.x, (int) spawnPos.y);
+        }
+        waveCount++;
+    }
+
+    private int EnemyCountForWave(int wave)
+    {
+        return (int)Mathf.Round(25.0f * (Mathf.Pow(wave/10.0f, 2)) + 5.0f);
+        //Paste this into desmos to modify:
+        //y=25\left(\frac{x}{10}\right)^{2}+5
     }
 
     public void CreateEnemy(int x, int y)
