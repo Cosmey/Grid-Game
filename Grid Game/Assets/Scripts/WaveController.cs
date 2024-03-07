@@ -103,6 +103,7 @@ public class WaveController : MonoBehaviour
     
     private void Wave()
     {
+        SetTickLength(waveCount);
         int enemyCount = EnemyCountForWave(waveCount);
         float radius = Mathf.Sqrt(enemyCount / Mathf.PI);
         float dist = waveCount/2 + 10 + radius;
@@ -114,6 +115,11 @@ public class WaveController : MonoBehaviour
         }
         waveCount++;
         waveDisplay.UpdateWaveText(waveCount);
+    }
+
+    private void SetTickLength(int wave)
+    {
+        tickLength = 0.5 * (Mathf.Pow(0.99f, wave));
     }
 
     private int EnemyCountForWave(int wave)
