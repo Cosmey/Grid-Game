@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    private List<GameObject> targetList;
     private GameObject target;
     [SerializeField] GameObject bullet;
-    [SerializeField] GameObject spawnPoint;
     [SerializeField] float bulletSpeed;
+    [SerializeField] int bulletDamage;
     float count = 0;
     bool attackable=true;
     float storedCount;
@@ -23,7 +22,7 @@ public class Tower : MonoBehaviour
     }
     private void Start()
     {
-        targetList = new List<GameObject>();
+        
     }
 
 
@@ -89,6 +88,7 @@ public class Tower : MonoBehaviour
             GameObject e = Instantiate(bullet);
             e.transform.position = transform.position;
             e.GetComponent<Rigidbody2D>().velocity = (target.transform.position - transform.position).normalized * bulletSpeed;
+            e.GetComponent<Entity>().SetDamage(bulletDamage);
             Destroy(e, 2);
             bulletMove(e);
         }

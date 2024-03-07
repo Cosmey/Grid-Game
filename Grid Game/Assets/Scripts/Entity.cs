@@ -27,6 +27,10 @@ public class Entity : MonoBehaviour
     {
         return cost;
     }
+    public void SetDamage(int newDamage)
+    {
+        damage = newDamage;
+    }
 
     public Vector2Int GetTargetFromPoint(Vector2Int point)
     {

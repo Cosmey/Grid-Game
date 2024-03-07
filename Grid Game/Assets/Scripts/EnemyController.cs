@@ -38,12 +38,6 @@ public class EnemyController : MonoBehaviour
     public void Tick()
     {
         transform.position.Set(newPos.x, newPos.y, transform.position.z);
-        //GameObject building = TowerManager.getBuilding(newPos);
-        //if(building != null) {
-        //    Entity entity = building.GetComponent<Entity>();
-        //    Entity enemyEntity = GetComponent<Entity>();
-        //    enemyEntity.DealDamageTo(entity);
-        //}
 
 
         if(newPos == goalPos)
@@ -102,7 +96,7 @@ public class EnemyController : MonoBehaviour
         {
             Entity entity = other.gameObject.GetComponent<Entity>();
             Entity enemyEntity = GetComponent<Entity>();
-            //DeathParticle();
+            DeathParticle();
             enemyEntity.DealDamageTo(entity);
         }
         else if(other.gameObject.tag == "Bullet")
@@ -110,6 +104,7 @@ public class EnemyController : MonoBehaviour
             Entity entity = other.gameObject.GetComponent<Entity>();
             Entity enemyEntity = GetComponent<Entity>();
             entity.DealDamageTo(enemyEntity);
+            Destroy(other.gameObject);
         }
         
     }
