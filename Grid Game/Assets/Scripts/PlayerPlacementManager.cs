@@ -8,9 +8,9 @@ public class PlayerPlacementManager : MonoBehaviour
     private GameObject selectedTower;
     private GameObject moneyManager;
     [SerializeField] private TowerDisplayScript myTowerDisplayScript;
-    [SerializeField] private GameObject basicTower;
-    [SerializeField] private GameObject wallTower;
-    private List<GameObject> towerList;
+    [SerializeField] List<GameObject> towerTypes = new List<GameObject>();
+    /*[SerializeField] private GameObject basicTower;
+    [SerializeField] private GameObject wallTower;*/
     private int currentTowerNum = 0;
     // Start is called before the first frame update
     void Start()
@@ -21,10 +21,7 @@ public class PlayerPlacementManager : MonoBehaviour
     private void SetupList()
     {
         moneyManager = GameObject.Find("MoneyManager");
-        towerList = new List<GameObject>();
-        towerList.Add(basicTower);
-        towerList.Add(wallTower);
-        selectedTower = towerList[currentTowerNum];
+        selectedTower = towerTypes[currentTowerNum];
         myTowerDisplayScript.SetSelectedTowerImage(selectedTower);
     }
 
@@ -36,25 +33,25 @@ public class PlayerPlacementManager : MonoBehaviour
     public void CycleTowers()
     {
         currentTowerNum++;
-        if(currentTowerNum >= towerList.Count)
+        if(currentTowerNum >= towerTypes.Count)
         {
             currentTowerNum = 0;
         }
-        selectedTower = towerList[currentTowerNum];
+        selectedTower = towerTypes[currentTowerNum];
         myTowerDisplayScript.SetSelectedTowerImage(selectedTower);
     }
     public void SelectTower(string towerName)
     {
         if(towerName == "basicTower")
         {
-            selectedTower = basicTower;
+            selectedTower = towerTypes[0];
         }
         else if(towerName == "wallTower")
         {
-            selectedTower = wallTower;
+            selectedTower = towerTypes[1];
         }
 
-        currentTowerNum = towerList.IndexOf(selectedTower);
+        currentTowerNum = towerTypes.IndexOf(selectedTower);
         myTowerDisplayScript.SetSelectedTowerImage(selectedTower);
     }
     public void TogglePlacingTowers()

@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour
     public int maxHealth;
     [SerializeField] public int damage;
     [SerializeField] public int cost;
-    private int radius;
+    [SerializeField] public int radius;
 
     void Start()
     {

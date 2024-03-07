@@ -8,7 +8,7 @@ public class WaveController : MonoBehaviour
 
     [SerializeField] double tickLength = 0.5;
     [SerializeField] private int waveCount = 0;
-    [SerializeField] public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies = new List<GameObject>();
     [SerializeField] GameObject enemy;
     [SerializeField] WaveDisplayScript waveDisplay;
 
