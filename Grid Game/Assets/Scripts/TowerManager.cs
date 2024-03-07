@@ -37,19 +37,20 @@ public class TowerManager : MonoBehaviour
         int finY = y + MAX_HEIGHT / 2;
 
         int radius = building.GetComponent<Entity>().radius - 1;
-        
+        Debug.Log(buildings[finX, finY]);
 
         //minX, maxX, minY, maxY
         if (finX - radius < 0 || finX + radius >= MAX_WIDTH || finY - radius < 0 || finY + radius >= MAX_HEIGHT)
         {
             return false;
         }
-        for (int fx = -radius; fx <= radius; fx++) { 
+        for (int fx = -radius; fx <= radius; fx++) 
             for(int fy = -radius; fy <= radius; fy++)
-            {
-                buildings[finX+fx, finY+fy] = building;
-            }
-        }
+                if (buildings[finX + fx, finY + fy] != null)
+                    return false;
+        for (int fx = -radius; fx <= radius; fx++)
+            for (int fy = -radius; fy <= radius; fy++)
+                buildings[finX + fx, finY + fy] = building;
         
 
         return true;

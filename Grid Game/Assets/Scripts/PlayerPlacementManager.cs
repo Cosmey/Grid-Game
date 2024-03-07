@@ -63,18 +63,15 @@ public class PlayerPlacementManager : MonoBehaviour
         Vector2 mousePos = (Vector2)GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
         mousePos.Set(Mathf.Round(mousePos.x), Mathf.Round(mousePos.y));
         int cost = selectedTower.GetComponent<Entity>().GetCost();
-        if (TowerManager.getBuilding(mousePos) == null && moneyManager.GetComponent<MoneyManagerScript>().SubtractAndCheckMoney(cost)) {
-            GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
+        MoneyManagerScript mm = moneyManager.GetComponent<MoneyManagerScript>();
+
+        GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
+        if (mm.CheckMoney(cost) && TowerManager.setBuilding(mousePos, tower)) {
             tower.transform.localPosition = mousePos;
-            if (TowerManager.setBuilding(mousePos, tower))
-            {
-                
-            } else
-            {
-               //Debug.Log("Invalid Placement!");
-            }
+            mm.SubtractMoney(cost);
         } else
         {
+            Destroy(tower);
             //Debug.Log("Existing Tower There!");
         }
 

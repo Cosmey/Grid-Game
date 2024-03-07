@@ -25,6 +25,12 @@ public class MoneyManagerScript : MonoBehaviour
         money += amount;
         UpdateMoneyDisplay();
     }
+
+    public bool CheckMoney(int amount)
+    {
+        return money >= amount;
+    }
+
     public void SubtractMoney(int amount)
     {
         money -= amount;
