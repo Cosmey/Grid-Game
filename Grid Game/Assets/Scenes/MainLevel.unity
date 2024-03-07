@@ -3096,8 +3096,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myTowerDisplayScript: {fileID: 1398750914}
-  basicTower: {fileID: 6435607404370001169, guid: 4cd5218e42f8b6c4f99ee7a22e484ae7, type: 3}
-  wallTower: {fileID: 4713189871404043295, guid: b95a6dd93d770d14ca04cd599d7c8069, type: 3}
+  towerTypes:
+  - {fileID: 6435607404370001169, guid: 4cd5218e42f8b6c4f99ee7a22e484ae7, type: 3}
+  - {fileID: 4713189871404043295, guid: b95a6dd93d770d14ca04cd599d7c8069, type: 3}
+  - {fileID: 4113313835277490556, guid: 356622f3853a70c48ac9fc29e5114044, type: 3}
+  - {fileID: 7161824693830972711, guid: 535c0d24dd1314b4a8d311836042cf79, type: 3}
 --- !u!1 &551689607
 GameObject:
   m_ObjectHideFlags: 0
@@ -10924,6 +10927,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   cost: 0
+  radius: 0
 --- !u!114 &2078714566
 MonoBehaviour:
   m_ObjectHideFlags: 0
