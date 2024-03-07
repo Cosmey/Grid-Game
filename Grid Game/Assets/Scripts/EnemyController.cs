@@ -33,7 +33,6 @@ public class EnemyController : MonoBehaviour
     private void OnDestroy()
     {
         WaveController.instance.RemoveEnemy(gameObject);
-        GameObject.Find("MoneyManager").GetComponent<MoneyManagerScript>().AddMoney(money);
     }
 
     public void Tick()
@@ -105,6 +104,12 @@ public class EnemyController : MonoBehaviour
             Entity enemyEntity = GetComponent<Entity>();
             //DeathParticle();
             enemyEntity.DealDamageTo(entity);
+        }
+        else if(other.gameObject.tag == "Bullet")
+        {
+            Entity entity = other.gameObject.GetComponent<Entity>();
+            Entity enemyEntity = GetComponent<Entity>();
+            entity.DealDamageTo(enemyEntity);
         }
         
     }

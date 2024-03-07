@@ -77,6 +77,11 @@ public class Entity : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            if(gameObject.tag == "Enemy")
+            {
+                GameObject.Find("MoneyManager").GetComponent<MoneyManagerScript>().AddMoney(cost);
+            }
+            
             Destroy(gameObject);
         }
     }

@@ -10,6 +10,7 @@ public class WaveController : MonoBehaviour
     [SerializeField] private int waveCount = 0;
     [SerializeField] public List<GameObject> enemies = new List<GameObject>();
     [SerializeField] GameObject enemy;
+    [SerializeField] WaveDisplayScript waveDisplay;
 
     public static WaveController instance;
 
@@ -112,6 +113,7 @@ public class WaveController : MonoBehaviour
             CreateEnemy((int) spawnPos.x, (int) spawnPos.y);
         }
         waveCount++;
+        waveDisplay.UpdateWaveText(waveCount);
     }
 
     private int EnemyCountForWave(int wave)
