@@ -6,8 +6,8 @@ using static UnityEditor.PlayerSettings;
 public class TowerManager : MonoBehaviour
 {
 
-    static int MAX_WIDTH = 101;
-    static int MAX_HEIGHT = 101;
+    public static int MAX_WIDTH = 101;
+    public static int MAX_HEIGHT = 101;
     private static GameObject[,] buildings = new GameObject[MAX_WIDTH, MAX_HEIGHT];
 
     public static GameObject getBuilding(Vector2 pos)
@@ -36,18 +36,20 @@ public class TowerManager : MonoBehaviour
         int finX = x + MAX_WIDTH / 2;
         int finY = y + MAX_HEIGHT / 2;
 
-        int radius = building.GetComponent<Entity>().radius - 1;
-        Debug.Log(buildings[finX, finY]);
+        int radius = (int) Mathf.Ceil((building.transform.localScale.x / 2)) - 1;
 
         //minX, maxX, minY, maxY
         if (finX - radius < 0 || finX + radius >= MAX_WIDTH || finY - radius < 0 || finY + radius >= MAX_HEIGHT)
         {
             return false;
         }
-        for (int fx = -radius; fx <= radius; fx++) 
-            for(int fy = -radius; fy <= radius; fy++)
+        for (int fx = -radius; fx <= radius; fx++)
+            for(int fy = -radius; fy <= radius; fy++) {
                 if (buildings[finX + fx, finY + fy] != null)
                     return false;
+            }
+                
+                
         for (int fx = -radius; fx <= radius; fx++)
             for (int fy = -radius; fy <= radius; fy++)
                 buildings[finX + fx, finY + fy] = building;

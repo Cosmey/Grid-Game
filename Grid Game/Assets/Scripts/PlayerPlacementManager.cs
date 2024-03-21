@@ -77,4 +77,22 @@ public class PlayerPlacementManager : MonoBehaviour
 
         
     }
+
+    private void TestGrid()
+    {
+        for(int x=0;x<TowerManager.MAX_WIDTH;x++) { 
+            for(int y=0;y<TowerManager.MAX_HEIGHT;y++)
+            {
+                GameObject tower = Instantiate(selectedTower, GameObject.Find("Towers").transform);
+                Vector2 pos = new Vector2(x - TowerManager.MAX_WIDTH/2, y - TowerManager.MAX_HEIGHT / 2);
+                if(TowerManager.setBuilding(pos, tower))
+                {
+                    tower.transform.localPosition = pos;
+                } else
+                {
+                    Destroy(tower);
+                }
+            }
+        }
+    }
 }

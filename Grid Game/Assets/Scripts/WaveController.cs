@@ -25,9 +25,9 @@ public class WaveController : MonoBehaviour
         }
         baseEntity = GetComponent<Entity>();
         //Make it so you can't place stuff on top of home base
-        for (int x = -2; x <= 2; x++)
+        for (int x = 0; x < 5; x++)
         {
-            for (int y = -2; y <= 2; y++)
+            for (int y = 0; y < 5; y++)
             {
                 TowerManager.setBuilding(x, y, gameObject);
             }
@@ -85,7 +85,7 @@ public class WaveController : MonoBehaviour
     {
         if(enemies.Count == 0)
         {
-            Wave();
+            //Wave();
         }
         foreach(GameObject enemy in enemies)
         {
