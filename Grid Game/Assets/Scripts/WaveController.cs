@@ -9,9 +9,9 @@ public class WaveController : MonoBehaviour
     [SerializeField] double tickLength = 0.5;
     [SerializeField] private int waveCount = 0;
     public List<GameObject> enemies = new List<GameObject>();
-    [SerializeField] GameObject enemy;
+    public List<GameObject> enemyTypes;
     [SerializeField] WaveDisplayScript waveDisplay;
-    private bool isRunning;
+    [SerializeField] private bool isRunning;
 
     public static WaveController instance;
 
@@ -111,14 +111,14 @@ public class WaveController : MonoBehaviour
     private void Wave()
     {
         SetTickLength(waveCount);
-        int enemyCount = EnemyCountForWave(waveCount);
-        float radius = Mathf.Sqrt(enemyCount / Mathf.PI);
+        int balance = EnemyCountForWave(waveCount);
+        float radius = Mathf.Sqrt(balance / Mathf.PI);
         float dist = waveCount/2 + 10 + radius;
         Vector2 pos = Random.insideUnitCircle.normalized * dist;
-        for(int i=0;i<enemyCount; i++)
+        while(balance > 0)
         {
             Vector2 spawnPos = Random.insideUnitCircle * radius + pos;
-            CreateEnemy((int) spawnPos.x, (int) spawnPos.y);
+            balance = CreateEnemy((int)spawnPos.x, (int)spawnPos.y, balance);
         }
         waveCount++;
         waveDisplay.UpdateWaveText(waveCount);
@@ -136,9 +136,36 @@ public class WaveController : MonoBehaviour
         //y=25\left(\frac{x}{10}\right)^{2}+5
     }
 
-    public void CreateEnemy(int x, int y)
+
+    //returns the remaining balance
+    public int CreateEnemy(int x, int y, int balance)
     {
-        GameObject newEnemy = Instantiate(enemy);
+        
+        List<float> enemyWeights = new List<float>();
+        float totalWeight = 0.0f;
+        foreach (GameObject enemyType in enemyTypes)
+        {
+            float weight = 1.0f / enemyType.GetComponent<EnemyController>().money;
+            totalWeight+= weight;
+            enemyWeights.Add(totalWeight);
+        }
+        float rand = Random.Range(0, totalWeight);
+        for(int i=0;i<enemyTypes.Count;i++)
+        {
+            if(rand <= enemyWeights[i])
+            {
+                CreateEnemyType(x, y, i);
+                return balance - enemyTypes[i].GetComponent<EnemyController>().money;
+            }
+        }
+        Debug.Log("Total Weight: " + totalWeight + ", Rand: " + rand);
+        isRunning = false;
+        return 0;
+    }
+
+    public void CreateEnemyType(int x, int y, int enemyType)
+    {
+        GameObject newEnemy = Instantiate(enemyTypes[enemyType]);
         newEnemy.transform.position = new Vector2(x, y);
         EnemyController eC = newEnemy.GetComponent<EnemyController>();
         eC.Init();

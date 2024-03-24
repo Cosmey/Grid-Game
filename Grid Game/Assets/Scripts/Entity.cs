@@ -32,7 +32,7 @@ public class Entity : MonoBehaviour
         damage = newDamage;
     }
 
-    public Vector2Int GetTargetFromPoint(Vector2Int point)
+    public Vector2Int GetTargetFromPoint(Vector2 point)
     {
         Vector2Int upperLeft = new Vector2Int(pos.x - GetEdgeOffset(), pos.y - GetEdgeOffset());
         int width = (GetEdgeOffset() * 2) + 1;

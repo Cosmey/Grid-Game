@@ -7,13 +7,14 @@ using UnityEngine.UIElements;
 public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private Vector2Int oldPos;
-    [SerializeField] private Vector2Int newPos;
+    [SerializeField] private Vector2 oldPos;
+    [SerializeField] private Vector2 newPos;
     [SerializeField] private float goalRatio;
     [SerializeField] private Vector2Int goalPos;
     [SerializeField] private GameObject deathParticle;
     [SerializeField] private Entity targetEntity;
-    [SerializeField] private int money;
+    [SerializeField] public int money;
+    [SerializeField] private float speedMult = 1.0f;
     void Start()
     {
 
@@ -63,22 +64,22 @@ public class EnemyController : MonoBehaviour
         {
             if(transform.position.x < goalPos.x)
             {
-                newPos.Set(oldPos.x + 1, oldPos.y);
+                newPos.Set(oldPos.x + speedMult, oldPos.y);
             } 
             else
             {
-                newPos.Set(oldPos.x - 1, oldPos.y);
+                newPos.Set(oldPos.x - speedMult, oldPos.y);
             }
         }
         else //move along y
         {
             if (transform.position.y < goalPos.y)
             {
-                newPos.Set(oldPos.x, oldPos.y + 1);
+                newPos.Set(oldPos.x, oldPos.y + speedMult);
             } 
             else
             {
-                newPos.Set(oldPos.x, oldPos.y - 1);
+                newPos.Set(oldPos.x, oldPos.y - speedMult);
             }
         }
     }
