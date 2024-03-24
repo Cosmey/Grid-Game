@@ -20,9 +20,9 @@ public class MenuControllerScript : MonoBehaviour
         CheckInputs();
     }
 
-    public void LoadLevel()
+    public void LoadLevel(string levelName)
     {
-        SceneManager.LoadScene("MainLevel", LoadSceneMode.Single);
+        SceneManager.LoadScene(levelName, LoadSceneMode.Single);
     }
     public void SetMenu(GameObject menu)
     {
