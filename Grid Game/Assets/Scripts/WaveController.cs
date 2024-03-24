@@ -11,6 +11,7 @@ public class WaveController : MonoBehaviour
     public List<GameObject> enemies = new List<GameObject>();
     [SerializeField] GameObject enemy;
     [SerializeField] WaveDisplayScript waveDisplay;
+    private bool isRunning;
 
     public static WaveController instance;
 
@@ -32,6 +33,7 @@ public class WaveController : MonoBehaviour
                 TowerManager.setBuilding(x, y, gameObject);
             }
         }
+        isRunning = false;
     }
 
     double time = 0;
@@ -81,11 +83,16 @@ public class WaveController : MonoBehaviour
         GameOver();
     }
 
+    public static void StartWaves()
+    {
+        instance.isRunning = true;
+    }
+
     private void Tick()
     {
-        if(enemies.Count == 0)
+        if(enemies.Count == 0 && isRunning)
         {
-            //Wave();
+            Wave();
         }
         foreach(GameObject enemy in enemies)
         {
