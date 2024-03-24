@@ -6394,7 +6394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
-  currentMenu: {fileID: 0}
+  currentMenu: {fileID: 619606452}
 --- !u!1 &1097596929
 GameObject:
   m_ObjectHideFlags: 0
@@ -11063,9 +11063,10 @@ GameObject:
   - component: {fileID: 2078714563}
   - component: {fileID: 2078714565}
   - component: {fileID: 2078714566}
+  - component: {fileID: 2078714567}
   m_Layer: 0
   m_Name: Central Square
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11170,8 +11171,57 @@ MonoBehaviour:
   tickLength: 0.5
   waveCount: 0
   enemies: []
-  enemy: {fileID: 330682366712979022, guid: ac79fbcb1361aea4cab10b36153a9769, type: 3}
+  enemyTypes:
+  - {fileID: 330682366712979022, guid: ac79fbcb1361aea4cab10b36153a9769, type: 3}
+  - {fileID: 7419142444784962878, guid: c7c67615e5dfeee46b0380adb5019f92, type: 3}
+  - {fileID: 7419142444784962878, guid: 78fd7d419c02a4944bfa139cf6871a9c, type: 3}
   waveDisplay: {fileID: 788240468}
+  isRunning: 0
+--- !u!61 &2078714567
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078714562}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &2084867505
 GameObject:
   m_ObjectHideFlags: 0

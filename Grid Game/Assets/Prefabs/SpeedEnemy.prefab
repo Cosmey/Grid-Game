@@ -52,7 +52,7 @@ MonoBehaviour:
   newPos: {x: 0, y: 0}
   goalRatio: 0
   goalPos: {x: 0, y: 0}
-  deathParticle: {fileID: 0}
+  deathParticle: {fileID: 1661519964619253504, guid: 7ee8d09915954de42b9aaf4379009c56, type: 3}
   targetEntity: {fileID: 0}
   money: 3
   speedMult: 2
@@ -188,7 +188,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0.82689786, b: 0, a: 0.21568628}
+  m_Color: {r: 1, g: 0.82689786, b: 0, a: 0.39607844}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

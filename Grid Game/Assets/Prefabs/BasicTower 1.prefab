@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 6627991446184410414, guid: 82fd2414551c55e43b0b05808c651554, type: 3}
   bulletSpeed: 50
-  bulletDamage: 5
+  bulletDamage: 7
   attackCooldown: 1
   maxHealth: 100
   maxDistance: 10

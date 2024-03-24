@@ -52,7 +52,7 @@ MonoBehaviour:
   newPos: {x: 0, y: 0}
   goalRatio: 0
   goalPos: {x: 0, y: 0}
-  deathParticle: {fileID: 0}
+  deathParticle: {fileID: 3545418099674336307, guid: c157cea5a78da224daa9b3d3b4e9ef68, type: 3}
   targetEntity: {fileID: 0}
   money: 5
   speedMult: 0.5
@@ -72,7 +72,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   damage: 50
-  cost: 1
+  cost: 5
   radius: 0
 --- !u!61 &-1308091969565745416
 BoxCollider2D:
