@@ -159,6 +159,7 @@ public class WaveController : MonoBehaviour
             }
         }
         Debug.Log("Total Weight: " + totalWeight + ", Rand: " + rand);
+        Debug.Log("Does the enemy types list contain the enemies?");
         isRunning = false;
         return 0;
     }
