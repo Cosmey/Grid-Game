@@ -166,8 +166,7 @@ public class WaveController : MonoBehaviour
 
     public void CreateEnemyType(int x, int y, int enemyType)
     {
-        GameObject newEnemy = Instantiate(enemyTypes[enemyType]);
-        newEnemy.transform.position = new Vector2(x, y);
+        GameObject newEnemy = Instantiate(enemyTypes[enemyType], new Vector3(x, y, 0), Quaternion.identity);
         EnemyController eC = newEnemy.GetComponent<EnemyController>();
         eC.Init();
         enemies.Add(newEnemy);
