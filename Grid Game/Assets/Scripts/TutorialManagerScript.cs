@@ -32,6 +32,8 @@ public class TutorialManagerScript : MonoBehaviour
         KeyCode cycleTowersKeyCode = SaveDataScript.GetKeyCode("cycleTowerKeyCode");
         tutorial.Add(new TutorialStep("Press " + cycleTowersKeyCode.ToString() + " to cycle between towers to place", cycleTowersKeyCode, 2));
 
+        tutorial.Add(new TutorialStep("use scroll wheel to zoom in and out", 2));
+
         tutorial.Add(new TutorialStep("Prepare for incoming wave in 10", 1));
         tutorial.Add(new TutorialStep("Prepare for incoming wave in 9", 1));
         tutorial.Add(new TutorialStep("Prepare for incoming wave in 8", 1));
