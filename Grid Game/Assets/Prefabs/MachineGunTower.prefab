@@ -120,7 +120,7 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   health: 20
   maxHealth: 0
-  damage: 0
+  damage: 20
   cost: 30
   radius: 0
 --- !u!61 &3521979091407121704

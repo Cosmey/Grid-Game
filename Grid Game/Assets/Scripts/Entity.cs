@@ -67,7 +67,7 @@ public class Entity : MonoBehaviour
             return;
         }
         entity.TakeDamage(this);
-        Destroy(gameObject);
+        TakeDamage(entity);
     }
 
     //This should be called from the entity that is taking damage, parameter is dealing damage

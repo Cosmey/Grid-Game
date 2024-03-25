@@ -122,6 +122,10 @@ public class PlayerControllerScript : MonoBehaviour
         {
             myPlacementManager.CycleTowers();
         }
+        if(Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            WaveController.instance.Wave();
+        }
     }
     private void Move()
     {

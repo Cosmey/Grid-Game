@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 35139211973223757}
   - component: {fileID: -5915788050070305294}
   m_Layer: 0
-  m_Name: SlowEnemy
+  m_Name: BossEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,8 +54,8 @@ MonoBehaviour:
   goalPos: {x: 0, y: 0}
   deathParticle: {fileID: 3545418099674336307, guid: c157cea5a78da224daa9b3d3b4e9ef68, type: 3}
   targetEntity: {fileID: 0}
-  money: 5
-  speedMult: 0.25
+  money: 175
+  speedMult: 0.2
 --- !u!114 &8588303384838237614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +69,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pos: {x: 0, y: 0}
-  health: 100
-  maxHealth: 100
-  damage: 50
-  cost: 5
+  health: 5000
+  maxHealth: 5000
+  damage: 1000
+  cost: 175
   radius: 0
 --- !u!61 &-1308091969565745416
 BoxCollider2D:
@@ -188,7 +188,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.4528302, g: 0.17961295, b: 0, a: 0.21568628}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

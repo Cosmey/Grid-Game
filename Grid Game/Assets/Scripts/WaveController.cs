@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class WaveController : MonoBehaviour
 {
 
-    [SerializeField] double tickLength = 0.5;
-    [SerializeField] private int waveCount = 0;
-    public List<GameObject> enemies = new List<GameObject>();
-    public List<GameObject> enemyTypes;
-    [SerializeField] WaveDisplayScript waveDisplay;
     [SerializeField] private bool isRunning;
+    [SerializeField] public double tickLength = 0.5;
+    [SerializeField] public int waveCount = 0;
+    [SerializeField] int lastBalance;
+    public List<GameObject> enemyTypes;
+    public List<GameObject> enemies = new List<GameObject>();
+    [SerializeField] WaveDisplayScript waveDisplay;
 
     public static WaveController instance;
 
@@ -43,10 +44,13 @@ public class WaveController : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        while(ticks < time / tickLength)
+        if(ticks < time / tickLength)
         {
             ticks++;
-            Tick();
+            if(isRunning)
+            {
+                Tick();
+            }
         }
         float percentThroughTick = (float) ((time - (ticks * tickLength)) / tickLength);
         percentThroughTick = 1.0f - Mathf.Abs(percentThroughTick);
@@ -90,10 +94,6 @@ public class WaveController : MonoBehaviour
 
     private void Tick()
     {
-        if(enemies.Count == 0 && isRunning)
-        {
-            Wave();
-        }
         foreach(GameObject enemy in enemies)
         {
             if(enemy != null)
@@ -105,20 +105,26 @@ public class WaveController : MonoBehaviour
                 }
             }
         }
+        if (enemies.Count == 0 && isRunning)
+        {
+            Wave();
+        }
     }
 
     
-    private void Wave()
+    public void Wave()
     {
         SetTickLength(waveCount);
         int balance = EnemyCountForWave(waveCount);
         float radius = Mathf.Sqrt(balance / Mathf.PI);
-        float dist = waveCount/2 + 10 + radius;
+        float dist = waveCount/2 + 10 + 2*radius;
+        //Debug.Log(waveCount+": "+dist);
         Vector2 pos = Random.insideUnitCircle.normalized * dist;
         while(balance > 0)
         {
             Vector2 spawnPos = Random.insideUnitCircle * radius + pos;
-            balance = CreateEnemy((int)spawnPos.x, (int)spawnPos.y, balance);
+            //Debug.Log(spawnPos/*waveCount+" | ["+dist+"] ("+radius+") "+(Vector2.Distance(spawnPos, Vector2.zero))*/);
+            balance = CreateEnemy((int)Mathf.Round(spawnPos.x), (int)Mathf.Round(spawnPos.y), balance);
         }
         waveCount++;
         waveDisplay.UpdateWaveText(waveCount);
@@ -126,12 +132,13 @@ public class WaveController : MonoBehaviour
 
     private void SetTickLength(int wave)
     {
-        tickLength = 0.5 * (Mathf.Pow(0.99f, wave));
+        tickLength = 0.25 * (Mathf.Pow(0.95f, wave));
     }
 
-    private int EnemyCountForWave(int wave)
+    public static int EnemyCountForWave(int wave)
     {
-        return (int)Mathf.Round(25.0f * (Mathf.Pow(wave/10.0f, 2)) + 5.0f);
+        instance.lastBalance = (int)Mathf.Round(25.0f * (Mathf.Pow(wave / 10.0f, 2)) + 5.0f);
+        return instance.lastBalance;
         //Paste this into desmos to modify:
         //y=25\left(\frac{x}{10}\right)^{2}+5
     }
@@ -146,11 +153,15 @@ public class WaveController : MonoBehaviour
         foreach (GameObject enemyType in enemyTypes)
         {
             float weight = 1.0f / enemyType.GetComponent<EnemyController>().money;
-            totalWeight+= weight;
-            enemyWeights.Add(totalWeight);
+            if (balance >= enemyType.GetComponent<EnemyController>().money)
+            {
+                totalWeight += weight;
+                enemyWeights.Add(totalWeight);
+            }
+                
         }
         float rand = Random.Range(0, totalWeight);
-        for(int i=0;i<enemyTypes.Count;i++)
+        for(int i=0;i< enemyWeights.Count;i++)
         {
             if(rand <= enemyWeights[i])
             {
@@ -168,7 +179,7 @@ public class WaveController : MonoBehaviour
     {
         GameObject newEnemy = Instantiate(enemyTypes[enemyType], new Vector3(x, y, 0), Quaternion.identity);
         EnemyController eC = newEnemy.GetComponent<EnemyController>();
-        eC.Init();
+        eC.Init(x, y);
         enemies.Add(newEnemy);
     }
 

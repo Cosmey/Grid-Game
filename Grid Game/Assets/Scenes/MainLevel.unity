@@ -11168,15 +11168,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90a77d7881b2e044e825c7d11aea3f7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tickLength: 0.5
+  isRunning: 0
+  tickLength: 0.25
   waveCount: 0
-  enemies: []
+  lastBalance: 0
   enemyTypes:
   - {fileID: 330682366712979022, guid: ac79fbcb1361aea4cab10b36153a9769, type: 3}
   - {fileID: 7419142444784962878, guid: c7c67615e5dfeee46b0380adb5019f92, type: 3}
   - {fileID: 7419142444784962878, guid: 78fd7d419c02a4944bfa139cf6871a9c, type: 3}
+  - {fileID: 7419142444784962878, guid: 26c6c5aa832349b408d00dc50c20a7fc, type: 3}
+  enemies: []
   waveDisplay: {fileID: 788240468}
-  isRunning: 0
 --- !u!61 &2078714567
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -20,15 +20,16 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    public void Init()
+    public void Init(int x, int y)
     {
-        oldPos = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-        newPos = oldPos;
+        oldPos = new Vector2(x, y);
+        newPos = new Vector2(oldPos.x, oldPos.y);
         targetEntity = WaveController.baseEntity;
         goalPos = targetEntity.GetTargetFromPoint(oldPos);
         float distX = Mathf.Abs(oldPos.x - goalPos.x);
         float distY = Mathf.Abs(oldPos.y - goalPos.y);
         goalRatio = distX + distY == 0 ? 0.5f : distX / (distX+distY);
+        lastTick = Time.time;
     }
 
     private void OnDestroy()
@@ -36,18 +37,31 @@ public class EnemyController : MonoBehaviour
         WaveController.instance.RemoveEnemy(gameObject);
     }
 
+    private double lastTick;
     public void Tick()
     {
-        transform.position.Set(newPos.x, newPos.y, transform.position.z);
+        if(Time.time - lastTick < WaveController.instance.tickLength - 0.01)
+        {
+            return;
+        }
+        lastTick = Time.time;
+        transform.position = new Vector3(newPos.x, newPos.y, transform.position.z);
+        /*if (firstTick) {
+            int balance = WaveController.EnemyCountForWave(WaveController.instance.waveCount);
+            float radius = Mathf.Sqrt(balance / Mathf.PI);
+            float dist = WaveController.instance.waveCount / 2 + 10 + 5 * radius;
+            Debug.Log("Goal Distance: " + dist + " (+-" + radius + ")");
+            Debug.Log("     Distance: " + Vector3.Distance(Vector3.zero, transform.position)); 
+            firstTick = false;
+        }*/
 
-
-        if(newPos == goalPos)
+        /*if(newPos == goalPos)
         {
             oldPos = goalPos;
             Entity entity = GetComponent<Entity>();
             if(entity != null)
             {
-                entity.DealDamageTo(targetEntity);
+                //entity.DealDamageTo(targetEntity);
             } 
             else
             {
@@ -55,31 +69,35 @@ public class EnemyController : MonoBehaviour
             }
             
             return;
-        }
+        }*/
         float distX = (int) Mathf.Abs(transform.position.x - goalPos.x);
         float distY = (int) Mathf.Abs(transform.position.y - goalPos.y);
         float ratio = distX + distY == 0 ? goalRatio + 1.0f : distX / (distX + distY);
-        oldPos = newPos;
+        oldPos = new Vector2(newPos.x, newPos.y);
         if (ratio >= goalRatio && distX != 0) //move along x
         {
             if(transform.position.x < goalPos.x)
             {
-                newPos.Set(oldPos.x + speedMult, oldPos.y);
+                //newPos.Set(oldPos.x + speedMult, oldPos.y);
+                newPos = new Vector2(oldPos.x + speedMult, oldPos.y);
             } 
             else
             {
-                newPos.Set(oldPos.x - speedMult, oldPos.y);
+                //newPos.Set(oldPos.x - speedMult, oldPos.y);
+                newPos = new Vector2(oldPos.x - speedMult, oldPos.y);
             }
         }
         else //move along y
         {
             if (transform.position.y < goalPos.y)
             {
-                newPos.Set(oldPos.x, oldPos.y + speedMult);
+                //newPos.Set(oldPos.x, oldPos.y + speedMult);
+                newPos = new Vector2(oldPos.x, oldPos.y + speedMult);
             } 
             else
             {
-                newPos.Set(oldPos.x, oldPos.y - speedMult);
+                //newPos.Set(oldPos.x, oldPos.y - speedMult);
+                newPos = new Vector2(oldPos.x, oldPos.y - speedMult);
             }
         }
     }
@@ -87,11 +105,12 @@ public class EnemyController : MonoBehaviour
     public void Lerp(float percent)
     {
         //transition enemy between oldPos and newPos based on how far into the current tick we are
-        transform.position = Vector2.Lerp(oldPos, newPos, percent);
+        Vector2 lerp = Vector2.Lerp(oldPos, newPos, percent);
+        transform.position = new Vector3(lerp.x, lerp.y, transform.position.z);
     }
 
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if(other.gameObject.tag == "Building")
         {

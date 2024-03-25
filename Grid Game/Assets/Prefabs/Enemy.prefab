@@ -107,7 +107,7 @@ MonoBehaviour:
   deathParticle: {fileID: 1878874090355297097, guid: 37405631fc733384fb2b063fc4bfaf63, type: 3}
   targetEntity: {fileID: 0}
   money: 1
-  speedMult: 1
+  speedMult: 0.5
 --- !u!114 &7819297696028490212
 MonoBehaviour:
   m_ObjectHideFlags: 0
