@@ -46,7 +46,7 @@ public class WaveController : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        if(ticks < time / tickLength)
+        while(ticks < time / tickLength)
         {
             ticks++;
             if(isRunning)

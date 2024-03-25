@@ -9,6 +9,7 @@ public class Tower : MonoBehaviour
     private GameObject target;
     [SerializeField] GameObject bullet;
     [SerializeField] float bulletSpeed;
+    [SerializeField] float bulletScale = 1.0f;
     [SerializeField] int bulletDamage;
     float count = 0;
     bool attackable=true;
@@ -58,10 +59,16 @@ public class Tower : MonoBehaviour
     {
         CheckTargetInRadius();
         List<GameObject> enemyList = WaveController.instance.enemies;
+        if(enemyList == null) return;
         float closestDistance = maxDistance;
         float distance;
         for(int i = 0;i < enemyList.Count; i++)
         {
+            if(enemyList[i] == null) 
+            {
+                continue;
+
+            }
             distance = Vector2.Distance(enemyList[i].transform.position, transform.position);
             if(distance < closestDistance)
             {
@@ -89,9 +96,10 @@ public class Tower : MonoBehaviour
         {
             GameObject e = Instantiate(bullet);
             e.transform.position = transform.position;
+            e.transform.localScale = e.transform.localScale * bulletScale;
             e.GetComponent<Rigidbody2D>().velocity = (target.transform.position - transform.position).normalized * bulletSpeed;
             e.GetComponent<Entity>().SetDamage(bulletDamage);
-            Destroy(e, 2);
+            Destroy(e, 5);
             bulletMove(e);
         }
         

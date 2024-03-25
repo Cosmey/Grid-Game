@@ -7,16 +7,22 @@ using UnityEngine;
 public class PlayerPlacementManager : MonoBehaviour
 {
     private bool placingTowers;
-    private GameObject selectedTower;
+    public GameObject selectedTower;
     private GameObject moneyManager;
     [SerializeField] private TowerDisplayScript myTowerDisplayScript;
-    [SerializeField] List<GameObject> towerTypes = new List<GameObject>();
+    [SerializeField] public List<GameObject> towerTypes = new List<GameObject>();
     /*[SerializeField] private GameObject basicTower;
     [SerializeField] private GameObject wallTower;*/
     private int currentTowerNum = 0;
     // Start is called before the first frame update
+
+    public static PlayerPlacementManager instance;
+
     void Start()
     {
+        if(instance == null) {
+            instance = this;
+        }
         SetupList();
     }
 
