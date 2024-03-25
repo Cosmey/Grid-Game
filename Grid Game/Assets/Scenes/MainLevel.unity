@@ -11153,7 +11153,7 @@ MonoBehaviour:
   pos: {x: 0, y: 0}
   health: 1000
   maxHealth: 0
-  damage: 0
+  damage: 2147483647
   cost: 0
   radius: 0
 --- !u!114 &2078714566
